@@ -11,7 +11,18 @@ proxy:
   - id: qmongr
     display-name: qmongr
     container-cmd: ["R", "-e", "options(shiny.port=3838,shiny.host='0.0.0.0'); qmongr::run_app()"]
-    container-image: hnskde/qmongr
+    container-image: hnskde/qmongr:latest
+    container-network: mongr-net
+    container-env:
+      IMONGR_DB_HOST: ${IMONGR_DB_HOST}
+      IMONGR_DB_NAME: ${IMONGR_DB_NAME}
+      IMONGR_DB_USER: ${IMONGR_DB_USER}
+      IMONGR_DB_PASS: ${IMONGR_DB_PASS}
+      NODE_NAME: ${NODE_NAME}
+  - id: qmongr-dev
+    display-name: qmongr-dev
+    container-cmd: ["R", "-e", "options(shiny.port=3838,shiny.host='0.0.0.0'); qmongr::run_app()"]
+    container-image: hnskde/qmongr:master
     container-network: mongr-net
     container-env:
       IMONGR_DB_HOST: ${IMONGR_DB_HOST}
